@@ -48,10 +48,6 @@ ssize_t proc_read(struct file *file, char  __user *usr_buf,size_t count, loff_t 
         return 0;
     }
     rv = sprintf(buffer, "command = [%s], pid = [%d], state = [%ld]\n", task->comm, task->pid, task->stats);
-    // list_for_each(list, &task->children){
-    //     task_child = list_entry(list, struct task_struct, sibling);
-    //     rv += sprintf(buffer + rv, "command = [%s], pid = [%d], state = [%ld]\n", task_child->comm, task_child->pid, task_child->stats);
-    // }
     completed = 1;
     copy_to_user(usr_buf, buffer, rv);
     return rv;
