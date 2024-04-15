@@ -24,6 +24,8 @@ int main () {
         monte_carlo();
     }
 
+    # pragma omp barrier
+
     # pragma omp master
     {
         double pi = 4 * (double)point_in_circle / point_in_square;
