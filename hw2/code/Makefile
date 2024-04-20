@@ -1,5 +1,5 @@
 n := main
-CFLAGS := -Wall -Wextra -Werror -fopenmp
+CFLAGS := -Wall -Wextra -Werror -fopenmp -lpthread
 
 all:
 	gcc $(CFLAGS) -o $(n).o $(n).c
