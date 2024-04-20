@@ -4,7 +4,6 @@
 # include <stdlib.h>
 # include <omp.h>
 
-int num_points = 15000;
 int point_in_circle = 0;
 int point_in_square = 0;
 
@@ -12,13 +11,23 @@ void monte_carlo() {
     // scale the random number to be between -1 and 1
     double x = (double)rand() / RAND_MAX * 2 - 1;
     double y = (double)rand() / RAND_MAX * 2 - 1;
-    if (x * x + y * y <= 1) {
-        point_in_circle++;
+    # pragma omp critical
+    {
+        if (x * x + y * y <= 1) {
+            point_in_circle++;
+        }
+        point_in_square++;
     }
-    point_in_square++;
 }
 
-int main () {
+int main (int argc, char *argv[]) {
+    if (argc < 2) {
+        fprintf(stderr, "Usage: %s <number of points>\n", argv[0]);
+        return 1;
+    }
+
+    int num_points = atoi(argv[1]);
+    
     # pragma omp parallel num_threads(num_points)
     {
         monte_carlo();
@@ -29,6 +38,8 @@ int main () {
     # pragma omp master
     {
         double pi = 4 * (double)point_in_circle / point_in_square;
+        printf("Points in circle: %d\n", point_in_circle);
+        printf("Points in square: %d\n", point_in_square);
         printf("Pi: %f\n", pi);
     }
 }
