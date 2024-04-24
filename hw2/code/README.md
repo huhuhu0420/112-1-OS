@@ -29,6 +29,8 @@ Write a multithreaded version of this algorithm that creates a separate thread t
 The thread will compute the number of points that fall within the circle and store that result in a global variable. When this thread has exited, the parent thread will calculate and output the estimated value of π. It is worth experimenting with the number of random points generated to see how accurate the estimation of π can be.
 
 ### Compilation
+
+Make sure you have `openmp` installed.
 ```sh
 make n=pi
 ```
@@ -47,3 +49,65 @@ Pi: 3.141400
 ```
 
 ![](./images/pi.png)
+
+# 6.33
+
+Assume that a finite number of resources of a single resource type must be managed.
+
+```c
+#define MAX_RESOURCES 5
+
+int available_resources = MAX_RESOURCES;
+int decrease_count(int count) {
+    if (available_resources < count)
+        return -1;
+    else {
+        available_resources -= count;
+        return 0;
+    }
+}
+
+int increase_count(int count) {
+    available_resources += count;
+    return 0;
+}
+```
+
+#### (a) Identify the data that needs to be protected from concurrent access.
+
+The `available_resources` variable needs to be protected from concurrent access.
+
+#### (b) Identify the location in the code where the race condition occurs.
+
+`available_resources -= count;` and `available_resources += count;` are the locations where the race condition occurs.
+
+#### (c) Write a multithreaded program using pthreads that allows multiple threads to access the increase and decrease functions concurrently.
+
+### Compilation
+```sh
+make n=resources
+```
+
+### Usage
+```sh
+./resources.o 
+```
+
+### Example Output
+```sh
+$ ./resources.o
+decrease: 2, available resources: 3
+use: 2
+decrease: 5, not enough resources: 3
+decrease: 1, available resources: 2
+use: 1
+increase: 2, available resources: 4
+decrease: 3, available resources: 1
+use: 3
+increase: 1, available resources: 2
+decrease: 4, not enough resources: 2
+increase: 3, available resources: 5
+Available resources: 5
+```
+
+![](./images/resources.png)
