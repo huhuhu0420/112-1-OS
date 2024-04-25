@@ -25,18 +25,14 @@ int decrease_count(int count) {
         return -1;
     }
     else {
-        // wait(&mutex);
         available_resources -= count;
-        // signal(&mutex);
         printf("decrease: %d, available resources: %d\n", count, available_resources);
         return 0;
     }
 }
 
 int increase_count(int count) {
-    // wait(&mutex);
     available_resources += count;
-    // signal(&mutex);
     printf("increase: %d, available resources: %d\n", count, available_resources);
     return 0;
 }
