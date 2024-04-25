@@ -30,7 +30,7 @@ The thread will compute the number of points that fall within the circle and sto
 
 ### Compilation
 
-Make sure you have `openmp` installed.
+Make sure your compiler supports `openmp` library.
 ```sh
 make n=pi
 ```
