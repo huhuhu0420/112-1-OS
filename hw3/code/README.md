@@ -1,6 +1,10 @@
 # 7.15
 In Exercise 4.27, you wrote a program to generate the Fibonacci sequence. If we let the parent thread access the Fibonacci numbers as soon as they were computed by the child thread—rather than waiting for the child thread to terminate— what changes would be necessary to the solution for this exercise? Implement your modified solution. 
 
+### Solution
+
+The child thread will write the Fibonacci numbers to a shared buffer. The parent thread will read the numbers from the buffer as soon as they are written by the child thread. 
+
 ### Compilation
 ```sh
 make n=fibonacci
