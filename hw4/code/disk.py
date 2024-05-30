@@ -1,5 +1,6 @@
 import random as rand
 from copy import deepcopy
+import sys
 
 class Algorithm:
     def __init__ (self, disk_request, head):
@@ -63,8 +64,12 @@ def get_disk_request(n):
     return request
 
 def main():
+    if len(sys.argv) != 2:
+        print("Usage: python disk.py <initial_head_position>")
+        sys.exit(1)
+    head = int(sys.argv[1])
+    
     disk_request = get_disk_request(1000)
-    head = int(input("Enter the head: "))
 
     if head < 0 or head > 4999:
         print("Invalid head, please enter a number between 0 and 4999.")

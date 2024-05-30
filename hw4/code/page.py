@@ -1,4 +1,5 @@
 import random as rand
+import sys
 
 class Algorithm:
     def __init__ (self, page_reference, frame):
@@ -78,9 +79,14 @@ def get_page_references(n):
     return page_referennce
 
 def main():
+
+    if len(sys.argv) != 2:
+        print("Usage: python page.py <frame_size>")
+        sys.exit(1)
+    frame_size = int(sys.argv[1])
+    
     page_reference = get_page_references(20)
     print(page_reference)
-    frame_size = int(input("Enter frame size: "))
     frame = [-1] * frame_size
 
     fifo = Fifo(page_reference, frame)
