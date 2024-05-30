@@ -66,6 +66,10 @@ def main():
     disk_request = get_disk_request(1000)
     head = int(input("Enter the head: "))
 
+    if head < 0 or head > 4999:
+        print("Invalid head, please enter a number between 0 and 4999.")
+        return
+
     fcfs = Fcfs(disk_request, head)
     fcfs_movement = fcfs.get_movement()
     print("FCFS: ", fcfs_movement)
