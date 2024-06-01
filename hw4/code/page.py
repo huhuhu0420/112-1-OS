@@ -1,10 +1,11 @@
 import random as rand
 import sys
+from copy import deepcopy
 
 class Algorithm:
     def __init__ (self, page_reference, frame):
-        self.page_reference = page_reference
-        self.frame = frame
+        self.page_reference = deepcopy(page_reference)
+        self.frame = deepcopy(frame)
         self.fault = 0
     
     def page_fault(self, page, i):
@@ -38,10 +39,12 @@ class Lru(Algorithm):
     def page_fault(self, page, i):
         self.frame.pop(0)
         self.frame.append(page)
+        print(self.frame, "Fault")
 
     def no_fault(self, page):
         self.frame.remove(page)
         self.frame.append(page)
+        print(self.frame)
 
 class Optimal(Algorithm):
     def get_max_index(self, page, i):
@@ -85,7 +88,8 @@ def main():
         sys.exit(1)
     frame_size = int(sys.argv[1])
     
-    page_reference = get_page_references(20)
+    # page_reference = get_page_references(20)
+    page_reference = [1, 2, 3, 4, 5, 3, 4, 1, 5, 6, 7, 8, 7, 8, 9, 7, 8, 9, 6, 5, 4, 3, 4, 2, 7, 8]
     print(page_reference)
     frame = [-1] * frame_size
 
