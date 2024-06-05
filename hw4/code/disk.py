@@ -25,12 +25,12 @@ class Algorithm:
 class Fcfs(Algorithm):
     def get_movement(self):
         self.movement = 0
-        print("Path: ", end="")
+        # print("Path: ", end="")
         for i in range(len(self.disk_request)):
-            print(self.head, end=" ")
+            # print(self.head, end=" ")
             self.movement += abs(self.head - self.disk_request[i])
             self.head = self.disk_request[i]
-        print(self.head)
+        # print(self.head)
         return self.movement
 
 class Scan(Algorithm):
@@ -39,17 +39,17 @@ class Scan(Algorithm):
         self.disk_request.append(4999)
         self.disk_request.append(0)
         self.disk_request.sort()
-        print("Path: ", end="")
+        # print("Path: ", end="")
         index = self.get_closest_to_head()
         for i in range(index, len(self.disk_request)):
-            print(self.head, end=" ")
+            # print(self.head, end=" ")
             self.movement += abs(self.head - self.disk_request[i])
             self.head = self.disk_request[i]
         for i in range(index - 1, -1, -1):
-            print(self.head, end=" ")
+            # print(self.head, end=" ")
             self.movement += abs(self.head - self.disk_request[i])
             self.head = self.disk_request[i]
-        print(self.head)
+        # print(self.head)
         return self.movement
 
 class Cscan(Algorithm):
@@ -58,19 +58,19 @@ class Cscan(Algorithm):
         self.disk_request.append(4999)
         self.disk_request.append(0)
         self.disk_request.sort()
-        print("Path: ", end="")
+        # print("Path: ", end="")
         index = self.get_closest_to_head()
         for i in range(index, len(self.disk_request)):
-            print(self.head, end=" ")
+            # print(self.head, end=" ")
             self.movement += abs(self.head - self.disk_request[i])
             self.head = self.disk_request[i]
-        print(self.head, end=" ")
+        # print(self.head, end=" ")
         self.head = self.disk_request[0]
         for i in range(1, index):
-            print(self.head, end=" ")
+            # print(self.head, end=" ")
             self.movement += abs(self.head - self.disk_request[i])
             self.head = self.disk_request[i]
-        print(self.head)
+        # print(self.head)
         return self.movement
 
 def get_disk_request(n):
@@ -85,7 +85,7 @@ def main():
         sys.exit(1)
     head = int(sys.argv[1])
     
-    disk_request = get_disk_request(10)
+    disk_request = get_disk_request(1000)
 
     if head < 0 or head > 4999:
         print("Invalid head, please enter a number between 0 and 4999.")
