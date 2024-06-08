@@ -135,14 +135,29 @@ eliminate:
 
 **(a) A write of one block of data.**
 
-2 blocks. 
-1 target block + pariry block
+2 blocks. 2 reads and 2 writes.
+
+read target block
+
+read parity block
+
+write target block
+
+write parity block
 
 **(b) A write of seven contiguous blocks of data.**
 
-9 blocks. 
-4 target block + 1 parity block
-3 target block + 1 parity block
+9 blocks. 1 read and 9 writes.
+
+write first 4 blocks
+
+write first parity block
+
+read second parity block
+
+write last 3 blocks
+
+write second parity block
 
 ### 11.21:
 **Compare the throughput achieved by a RAID level 5 organization with that achieved by a RAID level 1 organization.**
@@ -164,17 +179,25 @@ RAID 5 可以同時在不同 disk 上讀取不同的 block，隨著 disk 增多�
 **(a) How is the logical-to-physical address mapping accomplished in this system? (For indexed allocation, assume that a file is always less than 512 blocks long)**
 
 Countiguous: 
+
 logical address / 512 = Q ... R
+
 Block to be accessed = Q + starting address
+
 Displacement into block = R
 
 Linked:
+
 logical address / 511 = Q ... R
+
 Block to be accessed is the Qth block in the linked chain
+
 Displacement into block = R + 1
 
 Index:
+
 logical address / 512 = Q ... R
+
 First get the index block into memory. The physical block address is contained in the index block at location Q. R is the displacement into the desired physical block.
 
 **(b) If we are currently at logical block 10 (the last block accessed was block 10) and want to access logical block 4, how many physical blocks must be read from the disk?**
